@@ -100,7 +100,7 @@ fi
 %attr(640,root,root) /etc/sysconfig/rc-inetd/leafnode
 %attr(644,root,root) %{_mandir}/man*/*
 %attr(750,root,root) %{_sbindir}/*
-%attr(750,root,root) %{_bindir}/*
+%attr(750,root,news) %{_bindir}/*
 %attr(775,root,news) %dir  %{_var}/lock/news
 %attr(2775,root,news) %dir  %{_var}/spool/news
 %attr(775,root,news) %dir  %{_var}/spool/news/*

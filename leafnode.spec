@@ -48,7 +48,7 @@ wymagaj±cy rêcznego zarz±dzania.
 %patch0 -p1
 
 %build
-autoconf
+%{__autoconf}
 %configure \
 	--with-ipv6
 

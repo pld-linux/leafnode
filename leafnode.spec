@@ -15,8 +15,8 @@ Source4:	%{name}.rc-inetd
 URL:		http://www.leafnode.org/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	pcre-devel
-Requires:	inetdaemon
 Prereq:		rc-inetd
+Requires:	inetdaemon
 Provides:	nntpserver
 Obsoletes:	leafnode+
 Conflicts:	inn
@@ -61,8 +61,8 @@ leitores e um pequeno link para a net.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/{cron.daily,%{name},sysconfig/rc-inetd}
-install -d $RPM_BUILD_ROOT%{_var}/lock/news
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/{cron.daily,%{name},sysconfig/rc-inetd} \
+	$RPM_BUILD_ROOT%{_var}/lock/news
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT

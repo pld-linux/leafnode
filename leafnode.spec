@@ -97,7 +97,7 @@ fi
 %attr(755,news,news) %dir %{_sysconfdir}/%{name}
 %attr(600,news,news) %config %{_sysconfdir}/%{name}/config
 %attr(600,news,news) %config %{_sysconfdir}/%{name}/filters
-%attr(640,root,root) /etc/sysconfig/rc-inetd/leafnode
+%attr(640,root,root) %config(noreplace) %verify(not size, mtime, md5) /etc/sysconfig/rc-inetd/leafnode
 %attr(644,root,root) %{_mandir}/man*/*
 %attr(755,root,root) %{_sbindir}/*
 %attr(755,root,root) %{_bindir}/*

@@ -45,7 +45,7 @@ autoconf
 ./configure \
 	--prefix=%{_prefix} \
 	--mandir=%{_mandir} \
-	--enable-ipv6
+	--with-ipv6
 
 make libpcre.a CFLAGS="$RPM_OPT_FLAGS"
 

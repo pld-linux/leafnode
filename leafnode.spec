@@ -72,8 +72,6 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/config
 install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/filters
 install %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/leafnode
 
-gzip -9nf ChangeLog README TODO
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -91,7 +89,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz tools/archivefaq.pl update.sh
+%doc ChangeLog README TODO tools/archivefaq.pl update.sh
 %attr(755,root,root) /etc/cron.daily/texpire
 %attr(755,news,news) %dir %{_sysconfdir}/%{name}
 %attr(600,news,news) %config %{_sysconfdir}/%{name}/config

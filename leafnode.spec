@@ -1,25 +1,26 @@
 Summary:	NNTP server for small sites
 Summary(pl):	Serwer NNTP dla ma³ych hostów
+Summary(pt_BR):	Cliente / Servidor USENET para pequenos sites
 Name:		leafnode
-Version:	1.9.17
-Release:	1
-URL:		http://www.leafnode.org/
-Source0:	ftp://wpxx02.toxi.uni-wuerzburg.de/pub/%{name}-%{version}.tar.gz
+Version:	1.9.43
+Release:	2
+License:	distributable
+Group:		Networking/Daemons
+Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.rel.tar.bz2
+# Source0-md5:	4e1182cfeba69dfd182d21f51edad77e
 Source1:	%{name}.texpire
 Source2:	%{name}.config
 Source3:	%{name}.filters
 Source4:	%{name}.rc-inetd
-Patch0:		%{name}-noroot.patch
-#Patch1:	%{name}-headers.patch
-#Patch2:	http://www.misiek.eu.org/ipv6/leafnode-1.9.4-ipv6fix-220899.patch.gz
-Copyright:	distributable
-Group:		Networking/Daemons
-Group(pl):	Sieciowe/Serwery
-group(pl):	Sieciowe/Serwery
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Provides:	nntpserver
+URL:		http://www.leafnode.org/
+BuildRequires:	autoconf >= 2.54
+BuildRequires:	pcre-devel
+Prereq:		rc-inetd
 Requires:	inetdaemon
-Requires:	rc-inetd
+Provides:	nntpserver
+Obsoletes:	leafnode+
+Conflicts:	inn
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Leafnode is a USENET package intended for small sites, where there are
@@ -29,6 +30,12 @@ desired.
 The design of leafnode is intended to self-repair after problems, and
 to require no manual maintenance.
 
+%description -l de
+Leafnode ist ein offline-Newsserver, der vor allem für den typischen
+Einzelnutzer-Rechner ohne permanente Internetanbindung geeignet ist.
+Leafnode bezieht automatisch die Newsgroups, die der oder die Nutzer
+regelmaessig lesen, vom Newsserver des Providers.
+
 %description -l pl
 Leafnode to serwer USENET przeznaczony dla ma³ych hostów, gdzie jest
 niewielu u¿ytkowników i ma³o miejsca na dyskach ale du¿a liczba grup
@@ -37,43 +44,33 @@ usenet jest po¿±dana.
 leafnode jest zaprojektowany jako samo-naprawiaj±cy siê i nie
 wymagaj±cy rêcznego zarz±dzania.
 
-%prep
-%setup -q
+%description -l pt_BR
+O Leafnode é um software desenvolvido para disponibilizar acesso à USENET
+para pequenos sites rodando qualquer tipo de Unix, com pocas dezenas de
+leitores e um pequeno link para a net.
 
-%patch0 -p1
+%prep
+%setup -q -n %{name}-%{version}.rel
 
 %build
-autoconf
-CFLAGS="$RPM_OPT_FLAGS" ./configure \
-	--prefix=%{_prefix} \
-	--mandir=%{_mandir} \
+%{__autoconf}
+%configure \
 	--with-ipv6
 
-%{__make} libpcre.a 
-
-%{__make} LIBDIR=%{_sysconfdir}/%{name} \
-     LOCKFILE=%{_var}/lock/news/fetch.lck \
-     DEBUG="$RPM_OPT_FLAGS"
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/{cron.daily,%{name},sysconfig/rc-inetd} \
+	$RPM_BUILD_ROOT%{_var}/lock/news
 
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/{{cron.daily,%{_name}},sysconfig/rc-inetd}
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
-%{__make} PREFIX_USR=$RPM_BUILD_ROOT%{_prefix} \
-     PREFIX_VAR=$RPM_BUILD_ROOT%{_var} \
-LIBDIR=$RPM_BUILD_ROOT%{_sysconfdir}/%{name} \
-     LOCKFILE=$RPM_BUILD_ROOT%{_var}/lock/news/fetch.lck \
-     MANDIR=$RPM_BUILD_ROOT%{_mandir} \
-     install
-
-install %SOURCE1 $RPM_BUILD_ROOT/etc/cron.daily/texpire
-install %SOURCE2 $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/config
-install %SOURCE3 $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/filters
-install %SOURCE4 $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/leafnode
-
-strip		$RPM_BUILD_ROOT{%{_bindir}/*,%{_sbindir}/*} || :
-gzip -9nf -9nf	$RPM_BUILD_ROOT%{_mandir}/man*/* CHANGES INSTALL README TODO
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.daily/texpire
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/leafnode/config
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/leafnode/filters
+install %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/leafnode
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -82,7 +79,7 @@ rm -rf $RPM_BUILD_ROOT
 if [ -f /var/lock/subsys/rc-inetd ]; then
 	/etc/rc.d/init.d/rc-inetd reload 1>&2
 else
-	echo "Type \"/etc/rc.d/init.d/rc-inetd start\" to start inet sever" 1>&2
+	echo "Type \"/etc/rc.d/init.d/rc-inetd start\" to start inet server" 1>&2
 fi
 
 %postun
@@ -92,16 +89,16 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc {CHANGES,INSTALL,README,TODO}.gz tools/archivefaq.pl update.sh
+%doc ChangeLog README TODO tools/archivefaq.pl update.sh
 %attr(755,root,root) /etc/cron.daily/texpire
-%attr(775,root,news) %dir %{_sysconfdir}/%{name}
-%attr(640,root,news) %config %{_sysconfdir}/%{name}/config
-%attr(640,root,news) %config %{_sysconfdir}/%{name}/filters
+%attr(755,news,news) %dir %{_sysconfdir}/%{name}
+%attr(600,news,news) %config %{_sysconfdir}/%{name}/config
+%attr(600,news,news) %config %{_sysconfdir}/%{name}/filters
 %attr(640,root,root) /etc/sysconfig/rc-inetd/leafnode
 %attr(644,root,root) %{_mandir}/man*/*
-%attr(750,root,root) %{_sbindir}/*
-%attr(750,root,root) %{_bindir}/*
-%attr(775,root,news) %dir  %{_var}/lock/news
-%attr(2775,root,news) %dir  %{_var}/spool/news
-%attr(775,root,news) %dir  %{_var}/spool/news/*
-%attr(775,root,news) %dir  %{_var}/spool/news/message.id/*
+%attr(755,root,root) %{_sbindir}/*
+%attr(755,root,root) %{_bindir}/*
+%attr(755,news,news) %dir  %{_var}/lock/news
+%attr(2775,news,news) %dir %{_var}/spool/news
+%attr(775,news,news) %dir  %{_var}/spool/news/*
+%attr(775,news,news) %dir  %{_var}/spool/news/message.id/*

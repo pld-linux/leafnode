@@ -1,7 +1,7 @@
 Summary:	NNTP server for small sites
 Summary(pl):	Serwer NNTP dla ma³ych hostów
 Name:		leafnode
-Version:	1.9.17
+Version:	1.9.18
 Release:	1
 URL:		http://www.leafnode.org/
 Source0:	ftp://wpxx02.toxi.uni-wuerzburg.de/pub/%{name}-%{version}.tar.gz
@@ -73,7 +73,7 @@ install %SOURCE3 $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/filters
 install %SOURCE4 $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/leafnode
 
 strip		$RPM_BUILD_ROOT{%{_bindir}/*,%{_sbindir}/*} || :
-gzip -9nf -9nf	$RPM_BUILD_ROOT%{_mandir}/man*/* CHANGES INSTALL README TODO
+gzip -9nf -9nf	$RPM_BUILD_ROOT%{_mandir}/man*/* FAQ INSTALL README TODO ChangeLog
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -92,7 +92,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc {CHANGES,INSTALL,README,TODO}.gz tools/archivefaq.pl update.sh
+%doc {CREDITS,FAQ,INSTALL,README,TODO,ChangeLog}.gz tools/archivefaq.pl update.sh
 %attr(755,root,root) /etc/cron.daily/texpire
 %attr(775,root,news) %dir %{_sysconfdir}/%{name}
 %attr(640,root,news) %config %{_sysconfdir}/%{name}/config

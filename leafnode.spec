@@ -2,19 +2,18 @@ Summary:	NNTP server for small sites
 Summary(pl):	Serwer NNTP dla ma³ych hostów
 Summary(pt_BR):	Cliente / Servidor USENET para pequenos sites
 Name:		leafnode
-Version:	1.9.19
+Version:	1.9.43
 Release:	2
 License:	distributable
 Group:		Networking/Daemons
-Source0:	ftp://wpxx02.toxi.uni-wuerzburg.de/pub/%{name}-%{version}.tar.gz
-# Source0-md5:	dc7b33592283b92ba45ba38ae75e024e
+Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.rel.tar.bz2
+# Source0-md5:	4e1182cfeba69dfd182d21f51edad77e
 Source1:	%{name}.texpire
 Source2:	%{name}.config
 Source3:	%{name}.filters
 Source4:	%{name}.rc-inetd
-Patch0:		%{name}-noroot.patch
 URL:		http://www.leafnode.org/
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.54
 BuildRequires:	pcre-devel
 Requires:	inetdaemon
 Prereq:		rc-inetd
@@ -51,32 +50,26 @@ para pequenos sites rodando qualquer tipo de Unix, com pocas dezenas de
 leitores e um pequeno link para a net.
 
 %prep
-%setup -q
-%patch0 -p1
+%setup -q -n %{name}-%{version}.rel
 
 %build
 %{__autoconf}
 %configure \
 	--with-ipv6
 
-%{__make} LIBDIR=%{_sysconfdir}/%{name} \
-	LOCKFILE=%{_var}/lock/news/fetch.lck \
-	DEBUG="%{rpmcflags}"
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_sysconfdir}/{{cron.daily,%{_name}},sysconfig/rc-inetd}
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/{cron.daily,%{name},sysconfig/rc-inetd}
+install -d $RPM_BUILD_ROOT%{_var}/lock/news
 
 %{__make} install \
-	PREFIX_USR=$RPM_BUILD_ROOT%{_prefix} \
-	PREFIX_VAR=$RPM_BUILD_ROOT%{_var} \
-	LIBDIR=$RPM_BUILD_ROOT%{_sysconfdir}/%{name} \
-	LOCKFILE=$RPM_BUILD_ROOT%{_var}/lock/news/fetch.lck \
-	MANDIR=$RPM_BUILD_ROOT%{_mandir}
+	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.daily/texpire
-install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/config
-install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/filters
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/leafnode/config
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/leafnode/filters
 install %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/leafnode
 
 %clean

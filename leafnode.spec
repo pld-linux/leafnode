@@ -2,12 +2,12 @@ Summary:	NNTP server for small sites
 Summary(pl):	Serwer NNTP dla ma³ych hostów
 Summary(pt_BR):	Cliente / Servidor USENET para pequenos sites
 Name:		leafnode
-Version:	1.9.49
+Version:	1.9.51
 Release:	1
 License:	distributable
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.rel.tar.bz2
-# Source0-md5:	cbaedb673882d90ee4301dc29728e7dc
+# Source0-md5:	2b065ff4083bfd263c628fc823108240
 Source1:	%{name}.texpire
 Source2:	%{name}.config
 Source3:	%{name}.filters

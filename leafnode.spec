@@ -1,9 +1,9 @@
 Summary:	NNTP server for small sites
 Summary(pl):	Serwer NNTP dla ma³ych hostów
 Name:		leafnode
-Version:	1.9.9
+Version:	1.9.17
 Release:	1
-URL:		http://wpxx02.toxi.uni-wuerzburg.de/~krasel/leafnode.html
+URL:		http://www.leafnode.org/
 Source0:	ftp://wpxx02.toxi.uni-wuerzburg.de/pub/%{name}-%{version}.tar.gz
 Source1:	%{name}.texpire
 Source2:	%{name}.config
@@ -77,6 +77,18 @@ gzip -9nf -9nf	$RPM_BUILD_ROOT%{_mandir}/man*/* CHANGES INSTALL README TODO
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+if [ -f /var/lock/subsys/rc-inetd ]; then
+	/etc/rc.d/init.d/rc-inetd reload 1>&2
+else
+	echo "Type \"/etc/rc.d/init.d/rc-inetd start\" to start inet sever" 1>&2
+fi
+
+%postun
+if [ -f /var/lock/subsys/rc-inetd ]; then
+	/etc/rc.d/init.d/rc-inetd reload
+fi
 
 %files
 %defattr(644,root,root,755)

@@ -1,6 +1,6 @@
-diff -durN leafnode-1.9.9.orig/Makefile.in leafnode-1.9.9/Makefile.in
---- leafnode-1.9.9.orig/Makefile.in	Tue Jan  4 15:05:30 2000
-+++ leafnode-1.9.9/Makefile.in	Thu Jan  6 16:00:42 2000
+diff -urN leafnode-1.9.17/Makefile.in leafnode-1.9.17.pld/Makefile.in
+--- leafnode-1.9.17/Makefile.in	Mon Sep  4 21:26:20 2000
++++ leafnode-1.9.17.pld/Makefile.in	Sat Sep 23 22:09:44 2000
 @@ -123,17 +123,17 @@
  		-DVERSION=\"$(VERSION)\" $<
  
@@ -27,9 +27,9 @@ diff -durN leafnode-1.9.9.orig/Makefile.in leafnode-1.9.9/Makefile.in
 +	$(INSTALL) -c $(STRIP) checkgroups $(INSTALLROOT)$(BINDIR)/checkgroups
 +	$(INSTALL) -c $(STRIP) applyfilter $(INSTALLROOT)$(BINDIR)/applyfilter
 +	$(INSTALL) -c $(STRIP) newsq $(INSTALLROOT)$(USRDIR)/newsq
- 	cp $(srcdir)/*.8 $(INSTALLROOT)$(MANDIR)/man8
- 	if test $(PCRELIB) ; then cp $(srcdir)/pcre/pcre.7 $(INSTALLROOT)$(MANDIR)/man7 ; fi
- 	cp $(srcdir)/*.1 $(INSTALLROOT)$(MANDIR)/man1
+ 	$(INSTALL) -c -m 644 $(srcdir)/*.8 $(INSTALLROOT)$(MANDIR)/man8
+ 	if test $(PCRELIB) ; then $(INSTALL) -c -m 644 $(srcdir)/pcre/pcre.7 $(INSTALLROOT)$(MANDIR)/man7 ; fi
+ 	$(INSTALL) -c -m 644 $(srcdir)/*.1 $(INSTALLROOT)$(MANDIR)/man1
 @@ -157,15 +157,10 @@
  				$${a}$${b}3 $${a}$${b}4 $${a}$${b}5 \
  				$${a}$${b}6 $${a}$${b}7 $${a}$${b}8 \
@@ -46,24 +46,25 @@ diff -durN leafnode-1.9.9.orig/Makefile.in leafnode-1.9.9/Makefile.in
  	@echo Edit /etc/inetd.conf to start $(BINDIR)/leafnode and restart inetd
  	@echo If you update from a leafnode version \< 1.9.3, do a \"make update\"
  
-@@ -201,20 +196,12 @@
+@@ -201,21 +196,13 @@
  		Makefile.in configure install-sh \
  		update.sh makerpm.sh leafnode-$(VERSION).lsm \
  		leafnode-$(VERSION)
 -	chmod 644 leafnode-$(VERSION)/*
  	mkdir -p  leafnode-$(VERSION)/doc_german
 -	chmod 755 leafnode-$(VERSION)/doc_german
- 	mkdir -p leafnode-$(VERSION)/pcre
--	chmod 755 leafnode-$(VERSION)/pcre
  	mkdir -p leafnode-$(VERSION)/tools
 -	chmod 755 leafnode-$(VERSION)/tools
  	cp -R doc_german/* leafnode-$(VERSION)/doc_german/
  	cp tools/* leafnode-$(VERSION)/tools/
- 	cp pcre/* leafnode-$(VERSION)/pcre/
 -	chmod 755 leafnode-$(VERSION)/*sh
 -	chmod 755 leafnode-$(VERSION)/configure
 -	chmod 755 leafnode-$(VERSION)/tools/*
--	chmod 755 leafnode-$(VERSION)/pcre/perltest
  	tar cf leafnode-$(VERSION).tar leafnode-$(VERSION)
+ 	mkdir -p leafnode-$(VERSION)/pcre
+-	chmod 755 leafnode-$(VERSION)/pcre
+ 	cp pcre/* leafnode-$(VERSION)/pcre/
+-	chmod 755 leafnode-$(VERSION)/pcre/perltest
+ 	tar cf leafnode-pcre-$(VERSION).tar leafnode-$(VERSION)
  	gzip -f9 leafnode-$(VERSION).tar
- 	rm -rf leafnode-$(VERSION)
+ 	gzip -f9 leafnode-pcre-$(VERSION).tar

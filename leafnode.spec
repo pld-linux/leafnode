@@ -49,9 +49,9 @@ CFLAGS="$RPM_OPT_FLAGS" ./configure \
 	--mandir=%{_mandir} \
 	--with-ipv6
 
-make libpcre.a 
+%{__make} libpcre.a 
 
-make LIBDIR=%{_sysconfdir}/%{name} \
+%{__make} LIBDIR=%{_sysconfdir}/%{name} \
      LOCKFILE=%{_var}/lock/news/fetch.lck \
      DEBUG="$RPM_OPT_FLAGS"
 
@@ -60,7 +60,7 @@ rm -rf $RPM_BUILD_ROOT
 
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/{{cron.daily,%{_name}},sysconfig/rc-inetd}
 
-make PREFIX_USR=$RPM_BUILD_ROOT%{_prefix} \
+%{__make} PREFIX_USR=$RPM_BUILD_ROOT%{_prefix} \
      PREFIX_VAR=$RPM_BUILD_ROOT%{_var} \
 LIBDIR=$RPM_BUILD_ROOT%{_sysconfdir}/%{name} \
      LOCKFILE=$RPM_BUILD_ROOT%{_var}/lock/news/fetch.lck \

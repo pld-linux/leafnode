@@ -1,0 +1,29 @@
+# This is template file with service description. All lines with # in first
+# column are ignoered. This file must contains declaration variables:
+# /etc/sysconfig/rc-inetd
+
+SERVICE_NAME=leafnode
+SOCK_TYPE=stream
+PROTOCOL=tcp
+PORT=119
+FLAGS=nowait
+USER=news
+SERVER=tcpd
+DAEMON=/usr/sbin/leafnode
+
+# This variables are optional:
+
+DAEMONARGS=
+MAX_CONECTIONS=
+GROUP=
+NICE=
+FAMILY=ipv6
+INTERFACE=
+CHROOT=
+RPCNAME=
+RPCVERSION=
+INITGROUPS=
+BANNER=
+ECHO=
+FILTER=
+ENV=

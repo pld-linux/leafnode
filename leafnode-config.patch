@@ -1,0 +1,11 @@
+--- leafnode.orig/configutil.c	Wed Jul  2 15:00:03 2003
++++ leafnode/configutil.c	Sat Apr  3 01:59:53 2004
+@@ -145,7 +145,7 @@
+     param = critmalloc(TOKENSIZE, "allocating space for parsing");
+     value = critmalloc(TOKENSIZE, "allocating space for parsing");
+ 
+-    xsnprintf(s, SIZE_s, "%s/config", sysconfdir);
++    xsnprintf(s, SIZE_s, "%s/leafnode/config", sysconfdir);
+     if ((f = fopen(s, "r")) == NULL) {
+ 	syslog(LOG_ERR, "cannot open %s", s);
+ 	free(param);

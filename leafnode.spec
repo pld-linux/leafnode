@@ -8,7 +8,9 @@ Source0:	ftp://wpxx02.toxi.uni-wuerzburg.de/pub/%{name}-%{version}.tar.gz
 Source1:	leafnode.texpire
 Source2:	leafnode.config
 Source3:	leafnode.filters
-Patch:		leafnode-noroot.patch
+Patch0:		leafnode-noroot.patch
+Patch1:		leafnode-headers.patch
+Patch2:		http://www.misiek.eu.org/ipv6/leafnode-1.9.4-ipv6fix-220899.patch.gz
 Copyright:	distributable
 Group:		Networking/Daemons
 group(pl):	Sieciowe/Serwery
@@ -35,8 +37,11 @@ i nie wymagaj±cy rêcznego zarz±dzania.
 %setup -q
 
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
+autoconf
 ./configure \
 	--prefix=%{_prefix} \
 	--mandir=%{_mandir} \

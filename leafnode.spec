@@ -5,17 +5,19 @@ Version:	1.9.4
 Release:	1
 URL:		http://wpxx02.toxi.uni-wuerzburg.de/~krasel/leafnode.html
 Source0:	ftp://wpxx02.toxi.uni-wuerzburg.de/pub/%{name}-%{version}.tar.gz
-Source1:	leafnode.texpire
-Source2:	leafnode.config
-Source3:	leafnode.filters
-Patch0:		leafnode-noroot.patch
-Patch1:		leafnode-headers.patch
+Source1:	%{name}.texpire
+Source2:	%{name}.config
+Source3:	%{name}.filters
+Source4:	%{name}.rc-inetd
+Patch0:		%{name}-noroot.patch
+Patch1:		%{name}-headers.patch
 Patch2:		http://www.misiek.eu.org/ipv6/leafnode-1.9.4-ipv6fix-220899.patch.gz
 Copyright:	distributable
 Group:		Networking/Daemons
 group(pl):	Sieciowe/Serwery
 BuildRoot:	/tmp/%{name}-%{version}-root
 Conflicts:	inn
+Requires:	inetdaemon
 
 %description
 Leafnode is a USENET package intended for small sites, where
@@ -56,7 +58,7 @@ make LIBDIR=/etc/%{name} \
 %install
 rm -rf $RPM_BUILD_ROOT
 
-install -d $RPM_BUILD_ROOT/etc/{cron.daily,%{_name}}
+install -d $RPM_BUILD_ROOT/etc/{{cron.daily,%{_name}},sysconfig/rc-inetd}
 
 make PREFIX_USR=$RPM_BUILD_ROOT%{_prefix} \
      PREFIX_VAR=$RPM_BUILD_ROOT%{_var} \
@@ -68,6 +70,7 @@ make PREFIX_USR=$RPM_BUILD_ROOT%{_prefix} \
 install %SOURCE1 $RPM_BUILD_ROOT/etc/cron.daily/texpire
 install %SOURCE2 $RPM_BUILD_ROOT/etc/leafnode/config
 install %SOURCE3 $RPM_BUILD_ROOT/etc/leafnode/filters
+install %SOURCE4 $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/leafnode
 
 strip		$RPM_BUILD_ROOT{%{_bindir}/*,%{_sbindir}/*} || :
 gzip -9nf	$RPM_BUILD_ROOT%{_mandir}/man*/* CHANGES INSTALL README TODO
@@ -82,6 +85,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,news,news)  %dir /etc/%{name}
 %attr(600,news,news)  %config /etc/%{name}/config
 %attr(600,news,news)  %config /etc/%{name}/filters
+%attr(640,root,root)  /etc/sysconfig/rc-inetd/leafnode
 %attr(644,root,root)  %{_mandir}/man*/*
 %attr(750,news,news)  %{_sbindir}/*
 %attr(750,news,news)  %{_bindir}/*

@@ -28,6 +28,12 @@ desired.
 The design of leafnode is intended to self-repair after problems, and
 to require no manual maintenance.
 
+%description -l de
+Leafnode ist ein offline-Newsserver, der vor allem für den typischen
+Einzelnutzer-Rechner ohne permanente Internetanbindung geeignet ist.
+Leafnode bezieht automatisch die Newsgroups, die der oder die Nutzer
+regelmaessig lesen, vom Newsserver des Providers.
+
 %description -l pl
 Leafnode to serwer USENET przeznaczony dla ma³ych hostów, gdzie jest
 niewielu u¿ytkowników i ma³o miejsca na dyskach ale du¿a liczba grup

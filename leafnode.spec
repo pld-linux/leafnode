@@ -12,7 +12,7 @@ Source1:	%{name}.texpire
 Source2:	%{name}.config
 Source3:	%{name}.filters
 Source4:	%{name}.rc-inetd
-Patch0:		%{name}-config.patch
+Patch0: 	%{name}-config.patch
 URL:		http://www.leafnode.org/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	pcre-devel

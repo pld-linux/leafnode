@@ -18,6 +18,7 @@ group(pl):	Sieciowe/Serwery
 BuildRoot:	/tmp/%{name}-%{version}-root
 Conflicts:	inn
 Requires:	inetdaemon
+Requires:	rc-inetd
 
 %description
 Leafnode is a USENET package intended for small sites, where

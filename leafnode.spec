@@ -15,7 +15,7 @@ Patch0:		%{name}-noroot.patch
 Copyright:	distributable
 Group:		Networking/Daemons
 group(pl):	Sieciowe/Serwery
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Conflicts:	inn
 Requires:	inetdaemon
 Requires:	rc-inetd

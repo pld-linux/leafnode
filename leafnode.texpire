@@ -1,0 +1,9 @@
+#!/bin/sh
+#
+# Leafnode texpire cron job. To be run daily.
+
+# Expire old news.
+su - news -c /usr/sbin/texpire
+
+# Get new news.
+#su - news -c /usr/sbin/fetch

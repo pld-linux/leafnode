@@ -1,0 +1,4 @@
+# See applyfilter(8) and pcre(3) man pages for usage
+#
+#^Newsgroups:.*[, ]alt.flame$
+#^Newsgroups:.*[, ]alt.flame,

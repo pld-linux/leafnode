@@ -5,8 +5,6 @@ Version:	1.9.19
 Release:	1
 License:	distributable
 Group:		Networking/Daemons
-Group(de):	Netzwerkwesen/Server
-Group(pl):	Sieciowe/Serwery
 Source0:	ftp://wpxx02.toxi.uni-wuerzburg.de/pub/%{name}-%{version}.tar.gz
 Source1:	%{name}.texpire
 Source2:	%{name}.config

@@ -30,7 +30,7 @@ problems, and to require no manual maintenance.
 
 %description -l pl
 Leafnode to serwer USENET przeznaczony dla ma³ych hostów, gdzie
-niewielu jest niewielu u¿ytkowników i ma³o miejsca na dyskach
+jest niewielu u¿ytkowników i ma³o miejsca na dyskach
 ale du¿a liczba grup usenet jest po¿±dana.
 
 leafnode jest zaprojektowany jako samo-naprawiaj±cy siê

@@ -1,7 +1,7 @@
 Summary:	NNTP server for small sites
 Summary(pl):	Serwer NNTP dla ma³ych hostów
 Name:		leafnode
-Version:	1.9.18
+Version:	1.9.19
 Release:	1
 License:	distributable
 Group:		Networking/Daemons
@@ -13,7 +13,6 @@ Source2:	%{name}.config
 Source3:	%{name}.filters
 Source4:	%{name}.rc-inetd
 Patch0:		%{name}-noroot.patch
-Patch1:		%{name}-use_system_pcre.patch
 URL:		http://www.leafnode.org/
 BuildRequires:	autoconf
 Requires:	inetdaemon
@@ -46,7 +45,6 @@ wymagaj±cy rêcznego zarz±dzania.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 autoconf
@@ -73,7 +71,7 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/config
 install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/filters
 install %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/leafnode
 
-gzip -9nf CHANGES README TODO
+gzip -9nf ChangeLog README TODO
 
 %clean
 rm -rf $RPM_BUILD_ROOT

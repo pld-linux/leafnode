@@ -54,7 +54,7 @@ autoconf
 
 %{__make} LIBDIR=%{_sysconfdir}/%{name} \
 	LOCKFILE=%{_var}/lock/news/fetch.lck \
-	DEBUG="%{!?debug:$RPM_OPT_FLAGS}%{?debug:-O0 -g}"
+	DEBUG="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -67,10 +67,10 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/{{cron.daily,%{_name}},sysconfig/rc-ine
 	LOCKFILE=$RPM_BUILD_ROOT%{_var}/lock/news/fetch.lck \
 	MANDIR=$RPM_BUILD_ROOT%{_mandir}
 
-install %SOURCE1 $RPM_BUILD_ROOT/etc/cron.daily/texpire
-install %SOURCE2 $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/config
-install %SOURCE3 $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/filters
-install %SOURCE4 $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/leafnode
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.daily/texpire
+install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/config
+install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/filters
+install %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/leafnode
 
 gzip -9nf CHANGES README TODO
 

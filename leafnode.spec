@@ -1,5 +1,6 @@
 Summary:	NNTP server for small sites
 Summary(pl):	Serwer NNTP dla ma³ych hostów
+Summary(pt_BR):	Cliente / Servidor USENET para pequenos sites
 Name:		leafnode
 Version:	1.9.19
 Release:	2
@@ -43,6 +44,11 @@ usenet jest po¿±dana.
 
 leafnode jest zaprojektowany jako samo-naprawiaj±cy siê i nie
 wymagaj±cy rêcznego zarz±dzania.
+
+%description -l pt_BR
+O Leafnode é um software desenvolvido para disponibilizar acesso à USENET
+para pequenos sites rodando qualquer tipo de Unix, com pocas dezenas de
+leitores e um pequeno link para a net.
 
 %prep
 %setup -q

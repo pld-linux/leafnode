@@ -6,4 +6,4 @@
 su - news -c /usr/sbin/texpire
 
 # Get new news.
-#su - news -c /usr/sbin/fetch
+#su - news -c /usr/sbin/fetchnews

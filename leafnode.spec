@@ -16,7 +16,7 @@ Copyright:	distributable
 Group:		Networking/Daemons
 group(pl):	Sieciowe/Serwery
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-Conflicts:	inn
+Provides:	nntpserver
 Requires:	inetdaemon
 Requires:	rc-inetd
 

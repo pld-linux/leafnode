@@ -94,14 +94,14 @@ fi
 %defattr(644,root,root,755)
 %doc {CHANGES,INSTALL,README,TODO}.gz tools/archivefaq.pl update.sh
 %attr(755,root,root) /etc/cron.daily/texpire
-%attr(755,news,news) %dir %{_sysconfdir}/%{name}
-%attr(600,news,news) %config %{_sysconfdir}/%{name}/config
-%attr(600,news,news) %config %{_sysconfdir}/%{name}/filters
+%attr(775,root,news) %dir %{_sysconfdir}/%{name}
+%attr(640,root,news) %config %{_sysconfdir}/%{name}/config
+%attr(640,root,news) %config %{_sysconfdir}/%{name}/filters
 %attr(640,root,root) /etc/sysconfig/rc-inetd/leafnode
 %attr(644,root,root) %{_mandir}/man*/*
 %attr(750,root,root) %{_sbindir}/*
 %attr(750,root,root) %{_bindir}/*
-%attr(755,news,news) %dir  %{_var}/lock/news
-%attr(2775,news,news) %dir  %{_var}/spool/news
-%attr(775,news,news) %dir  %{_var}/spool/news/*
-%attr(775,news,news) %dir  %{_var}/spool/news/message.id/*
+%attr(775,root,news) %dir  %{_var}/lock/news
+%attr(2775,root,news) %dir  %{_var}/spool/news
+%attr(775,root,news) %dir  %{_var}/spool/news/*
+%attr(775,root,news) %dir  %{_var}/spool/news/message.id/*

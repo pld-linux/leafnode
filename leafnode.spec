@@ -2,7 +2,7 @@ Summary:	NNTP server for small sites
 Summary(pl):	Serwer NNTP dla ma³ych hostów
 Name:		leafnode
 Version:	1.9.19
-Release:	1
+Release:	2
 License:	distributable
 Group:		Networking/Daemons
 Source0:	ftp://wpxx02.toxi.uni-wuerzburg.de/pub/%{name}-%{version}.tar.gz
@@ -17,6 +17,8 @@ BuildRequires:	pcre-devel
 Requires:	inetdaemon
 Prereq:		rc-inetd
 Provides:	nntpserver
+Obsoletes:	leafnode+
+Conflicts:	inn
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description

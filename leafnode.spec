@@ -15,6 +15,7 @@ Source4:	%{name}.rc-inetd
 Patch0:		%{name}-noroot.patch
 URL:		http://www.leafnode.org/
 BuildRequires:	autoconf
+BuildRequires:	pcre-devel
 Requires:	inetdaemon
 Prereq:		rc-inetd
 Provides:	nntpserver

@@ -3,7 +3,7 @@ Summary(pl):	Serwer NNTP dla ma³ych hostów
 Summary(pt_BR):	Cliente / Servidor USENET para pequenos sites
 Name:		leafnode
 Version:	1.9.43
-Release:	2
+Release:	3
 License:	distributable
 Group:		Networking/Daemons
 Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.rel.tar.bz2
@@ -12,6 +12,7 @@ Source1:	%{name}.texpire
 Source2:	%{name}.config
 Source3:	%{name}.filters
 Source4:	%{name}.rc-inetd
+Patch0:	%{name}-config.patch
 URL:		http://www.leafnode.org/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	pcre-devel
@@ -51,6 +52,7 @@ leitores e um pequeno link para a net.
 
 %prep
 %setup -q -n %{name}-%{version}.rel
+%patch0 -p1
 
 %build
 %{__autoconf}
@@ -62,7 +64,7 @@ leitores e um pequeno link para a net.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/{cron.daily,%{name},sysconfig/rc-inetd} \
-	$RPM_BUILD_ROOT%{_var}/lock/news
+	$RPM_BUILD_ROOT%{_var}/lock/news $RPM_BUILD_ROOT%{_var}/log/news
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -102,3 +104,4 @@ fi
 %attr(2775,news,news) %dir %{_var}/spool/news
 %attr(775,news,news) %dir  %{_var}/spool/news/*
 %attr(775,news,news) %dir  %{_var}/spool/news/message.id/*
+%attr(775,news,news) %dir  %{_var}/log/news

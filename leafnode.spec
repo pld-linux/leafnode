@@ -1,7 +1,7 @@
 Summary:	NNTP server for small sites
 Summary(pl):	Serwer NNTP dla ma³ych hostów
 Name:		leafnode
-Version:	1.9.4
+Version:	1.9.9
 Release:	1
 URL:		http://wpxx02.toxi.uni-wuerzburg.de/~krasel/leafnode.html
 Source0:	ftp://wpxx02.toxi.uni-wuerzburg.de/pub/%{name}-%{version}.tar.gz
@@ -10,8 +10,8 @@ Source2:	%{name}.config
 Source3:	%{name}.filters
 Source4:	%{name}.rc-inetd
 Patch0:		%{name}-noroot.patch
-Patch1:		%{name}-headers.patch
-Patch2:		http://www.misiek.eu.org/ipv6/leafnode-1.9.4-ipv6fix-220899.patch.gz
+#Patch1:		%{name}-headers.patch
+#Patch2:		http://www.misiek.eu.org/ipv6/leafnode-1.9.4-ipv6fix-220899.patch.gz
 Copyright:	distributable
 Group:		Networking/Daemons
 group(pl):	Sieciowe/Serwery
@@ -40,17 +40,15 @@ i nie wymagaj±cy rêcznego zarz±dzania.
 %setup -q
 
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
 
 %build
 autoconf
-./configure \
+CFLAGS="$RPM_OPT_FLAGS" ./configure \
 	--prefix=%{_prefix} \
 	--mandir=%{_mandir} \
 	--with-ipv6
 
-make libpcre.a CFLAGS="$RPM_OPT_FLAGS"
+make libpcre.a 
 
 make LIBDIR=/etc/%{name} \
      LOCKFILE=%{_var}/lock/news/fetch.lck \

@@ -3,7 +3,7 @@ Summary(pl):	Serwer NNTP dla ma³ych hostów
 Name:		leafnode
 Version:	1.9.18
 Release:	1
-License:	Distributable
+License:	distributable
 Group:		Networking/Daemons
 Group(de):	Netzwerkwesen/Server
 Group(pl):	Sieciowe/Serwery

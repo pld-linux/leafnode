@@ -6,6 +6,7 @@ Release:	2
 License:	distributable
 Group:		Networking/Daemons
 Source0:	ftp://wpxx02.toxi.uni-wuerzburg.de/pub/%{name}-%{version}.tar.gz
+# Source0-md5:	dc7b33592283b92ba45ba38ae75e024e
 Source1:	%{name}.texpire
 Source2:	%{name}.config
 Source3:	%{name}.filters

@@ -55,8 +55,8 @@ leitores e um pequeno link para a net.
 %build
 %{__autoconf}
 %configure \
-	--with-ipv6
-
+	--with-ipv6 \
+	--sysconfdir=%{_sysconfdir}/%{name}
 %{__make}
 
 %install

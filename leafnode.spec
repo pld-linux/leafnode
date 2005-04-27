@@ -92,7 +92,7 @@ fi
 
 %files
 %defattr(644,root,root,755)
-%doc ChangeLog README TODO tools/archivefaq.pl update.sh
+%doc ChangeLog README tools/archivefaq.pl update.sh
 %attr(755,root,root) /etc/cron.daily/texpire
 %attr(755,news,news) %dir %{_sysconfdir}/%{name}
 %attr(600,news,news) %config %{_sysconfdir}/%{name}/config

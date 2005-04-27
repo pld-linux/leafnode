@@ -6,7 +6,7 @@ Version:	1.11.1
 Release:	1
 License:	distributable
 Group:		Networking/Daemons
-Source0:	http://dl.sourceforge.net/%{name}/%{name}-%{version}.rel.tar.bz2
+Source0:	http://dl.sourceforge.net/leafnode/%{name}-%{version}.rel.tar.bz2
 # Source0-md5:	b477026407809d2c9764264b8004e9d3
 Source1:	%{name}.texpire
 Source2:	%{name}.config
@@ -16,7 +16,7 @@ Patch0: 	%{name}-config.patch
 URL:		http://www.leafnode.org/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	pcre-devel
-Prereq:		rc-inetd
+PreReq:		rc-inetd
 Requires:	inetdaemon
 Provides:	nntpserver
 Obsoletes:	leafnode+
@@ -97,7 +97,7 @@ fi
 %attr(755,news,news) %dir %{_sysconfdir}/%{name}
 %attr(600,news,news) %config %{_sysconfdir}/%{name}/config
 %attr(600,news,news) %config %{_sysconfdir}/%{name}/filters
-%attr(640,root,root) %config(noreplace) %verify(not size, mtime, md5) /etc/sysconfig/rc-inetd/leafnode
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/rc-inetd/leafnode
 %attr(644,root,root) %{_mandir}/man*/*
 %attr(755,root,root) %{_sbindir}/*
 %attr(755,root,root) %{_bindir}/*

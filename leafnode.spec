@@ -12,12 +12,13 @@ Source1:	%{name}.texpire
 Source2:	%{name}.config
 Source3:	%{name}.filters
 Source4:	%{name}.rc-inetd
-Patch0: 	%{name}-config.patch
+Patch0:		%{name}-config.patch
 URL:		http://www.leafnode.org/
 BuildRequires:	autoconf >= 2.54
 BuildRequires:	pcre-devel
-PreReq:		rc-inetd
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	inetdaemon
+Requires:	rc-inetd
 Provides:	nntpserver
 Obsoletes:	leafnode+
 Conflicts:	inn
@@ -71,23 +72,19 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/{cron.daily,%{name},sysconfig/rc-inetd}
 	DESTDIR=$RPM_BUILD_ROOT
 
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.daily/texpire
-install %{SOURCE2} $RPM_BUILD_ROOT/etc/leafnode/config
-install %{SOURCE3} $RPM_BUILD_ROOT/etc/leafnode/filters
+install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/config
+install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/filters
 install %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/leafnode
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %post
-if [ -f /var/lock/subsys/rc-inetd ]; then
-	/etc/rc.d/init.d/rc-inetd reload 1>&2
-else
-	echo "Type \"/etc/rc.d/init.d/rc-inetd start\" to start inet server" 1>&2
-fi
+%service -q rc-inetd reload
 
 %postun
-if [ -f /var/lock/subsys/rc-inetd ]; then
-	/etc/rc.d/init.d/rc-inetd reload
+if [ "$1" = 0 ]; then
+	%service -q rc-inetd reload
 fi
 
 %files

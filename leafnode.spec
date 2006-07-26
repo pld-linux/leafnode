@@ -47,9 +47,9 @@ leafnode jest zaprojektowany jako samo-naprawiaj±cy siê i nie
 wymagaj±cy rêcznego zarz±dzania.
 
 %description -l pt_BR
-O Leafnode é um software desenvolvido para disponibilizar acesso à USENET
-para pequenos sites rodando qualquer tipo de Unix, com pocas dezenas de
-leitores e um pequeno link para a net.
+O Leafnode é um software desenvolvido para disponibilizar acesso à
+USENET para pequenos sites rodando qualquer tipo de Unix, com pocas
+dezenas de leitores e um pequeno link para a net.
 
 %prep
 %setup -q -n %{name}-%{version}.rel
@@ -95,7 +95,7 @@ fi
 %attr(600,news,news) %config %{_sysconfdir}/%{name}/config
 %attr(600,news,news) %config %{_sysconfdir}/%{name}/filters
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/rc-inetd/leafnode
-%attr(644,root,root) %{_mandir}/man*/*
+%{_mandir}/man*/*
 %attr(755,root,root) %{_sbindir}/*
 %attr(755,root,root) %{_bindir}/*
 %attr(755,news,news) %dir  %{_var}/lock/news

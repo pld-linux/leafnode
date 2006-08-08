@@ -53,7 +53,7 @@ dezenas de leitores e um pequeno link para a net.
 
 %prep
 %setup -q -n %{name}-%{version}.rel
-%patch -p1
+%patch0 -p1
 
 %build
 %{__autoconf}

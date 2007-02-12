@@ -1,6 +1,6 @@
 Summary:	NNTP server for small sites
-Summary(pl):	Serwer NNTP dla ma³ych hostów
-Summary(pt_BR):	Cliente / Servidor USENET para pequenos sites
+Summary(pl.UTF-8):   Serwer NNTP dla maÅ‚ych hostÃ³w
+Summary(pt_BR.UTF-8):   Cliente / Servidor USENET para pequenos sites
 Name:		leafnode
 Version:	1.11.2
 Release:	1
@@ -32,22 +32,22 @@ desired.
 The design of leafnode is intended to self-repair after problems, and
 to require no manual maintenance.
 
-%description -l de
-Leafnode ist ein offline-Newsserver, der vor allem für den typischen
+%description -l de.UTF-8
+Leafnode ist ein offline-Newsserver, der vor allem fÃ¼r den typischen
 Einzelnutzer-Rechner ohne permanente Internetanbindung geeignet ist.
 Leafnode bezieht automatisch die Newsgroups, die der oder die Nutzer
 regelmaessig lesen, vom Newsserver des Providers.
 
-%description -l pl
-Leafnode to serwer USENET przeznaczony dla ma³ych hostów, gdzie jest
-niewielu u¿ytkowników i ma³o miejsca na dyskach ale du¿a liczba grup
-usenet jest po¿±dana.
+%description -l pl.UTF-8
+Leafnode to serwer USENET przeznaczony dla maÅ‚ych hostÃ³w, gdzie jest
+niewielu uÅ¼ytkownikÃ³w i maÅ‚o miejsca na dyskach ale duÅ¼a liczba grup
+usenet jest poÅ¼Ä…dana.
 
-leafnode jest zaprojektowany jako samo-naprawiaj±cy siê i nie
-wymagaj±cy rêcznego zarz±dzania.
+leafnode jest zaprojektowany jako samo-naprawiajÄ…cy siÄ™ i nie
+wymagajÄ…cy rÄ™cznego zarzÄ…dzania.
 
-%description -l pt_BR
-O Leafnode é um software desenvolvido para disponibilizar acesso à
+%description -l pt_BR.UTF-8
+O Leafnode Ã© um software desenvolvido para disponibilizar acesso Ã 
 USENET para pequenos sites rodando qualquer tipo de Unix, com pocas
 dezenas de leitores e um pequeno link para a net.
 

@@ -1,6 +1,6 @@
 Summary:	NNTP server for small sites
-Summary(pl.UTF-8):   Serwer NNTP dla małych hostów
-Summary(pt_BR.UTF-8):   Cliente / Servidor USENET para pequenos sites
+Summary(pl.UTF-8):	Serwer NNTP dla małych hostów
+Summary(pt_BR.UTF-8):	Cliente / Servidor USENET para pequenos sites
 Name:		leafnode
 Version:	1.11.2
 Release:	1

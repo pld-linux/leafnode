@@ -92,8 +92,8 @@ fi
 %doc ChangeLog README tools/archivefaq.pl update.sh
 %attr(755,root,root) /etc/cron.daily/texpire
 %attr(755,news,news) %dir %{_sysconfdir}/%{name}
-%attr(600,news,news) %config %{_sysconfdir}/%{name}/config
-%attr(600,news,news) %config %{_sysconfdir}/%{name}/filters
+%attr(600,news,news) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/config
+%attr(600,news,news) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/filters
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/rc-inetd/leafnode
 %{_mandir}/man*/*
 %attr(755,root,root) %{_sbindir}/*

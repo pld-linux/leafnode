@@ -2,12 +2,12 @@ Summary:	NNTP server for small sites
 Summary(pl.UTF-8):	Serwer NNTP dla małych hostów
 Summary(pt_BR.UTF-8):	Cliente / Servidor USENET para pequenos sites
 Name:		leafnode
-Version:	1.11.2
+Version:	1.11.6
 Release:	1
 License:	distributable
 Group:		Networking/Daemons
-Source0:	http://dl.sourceforge.net/leafnode/%{name}-%{version}.rel.tar.bz2
-# Source0-md5:	bb97b9f654f54973e3c90bd11e6d8b24
+Source0:	http://dl.sourceforge.net/leafnode/%{name}-%{version}.tar.bz2
+# Source0-md5:	5a083968dbacc3d6f6d1013241c23e39
 Source1:	%{name}.texpire
 Source2:	%{name}.config
 Source3:	%{name}.filters
@@ -52,7 +52,7 @@ USENET para pequenos sites rodando qualquer tipo de Unix, com pocas
 dezenas de leitores e um pequeno link para a net.
 
 %prep
-%setup -q -n %{name}-%{version}.rel
+%setup -q
 %patch0 -p1
 
 %build
@@ -75,6 +75,17 @@ install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.daily/texpire
 install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/config
 install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/filters
 install %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/leafnode
+
+# unused stuff
+rm -f $RPM_BUILD_ROOT%{_sysconfdir}/Makefile.dist
+rm -f $RPM_BUILD_ROOT%{_sysconfdir}/config.example
+rm -f $RPM_BUILD_ROOT%{_sysconfdir}/filters.example
+
+# daemontools stuff
+rm -f $RPM_BUILD_ROOT%{_sysconfdir}/UNINSTALL-daemontools
+rm -f $RPM_BUILD_ROOT%{_sysconfdir}/nntp.rules.dist
+rm -f $RPM_BUILD_ROOT%{_sysconfdir}/run.tcpd.dist
+rm -f $RPM_BUILD_ROOT%{_sysconfdir}/run.tcpserver.dist
 
 %clean
 rm -rf $RPM_BUILD_ROOT

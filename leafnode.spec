@@ -2,22 +2,25 @@ Summary:	NNTP server for small sites
 Summary(pl.UTF-8):	Serwer NNTP dla małych hostów
 Summary(pt_BR.UTF-8):	Cliente / Servidor USENET para pequenos sites
 Name:		leafnode
-Version:	1.11.8
+Version:	1.12.0
 Release:	1
 License:	distributable
 Group:		Networking/Daemons
-Source0:	http://downloads.sourceforge.net/leafnode/%{name}-%{version}.tar.bz2
-# Source0-md5:	a3edafeb854efaa3fbb0f7951d02160f
+Source0:	https://downloads.sourceforge.net/leafnode/%{name}-%{version}.tar.xz
+# Source0-md5:	0fe11436e77158b0cc03cd1808366d3c
 Source1:	%{name}.texpire
 Source2:	%{name}.config
 Source3:	%{name}.filters
 Source4:	%{name}.rc-inetd
 Patch0:		%{name}-config.patch
-URL:		http://www.leafnode.org/
-BuildRequires:	autoconf >= 2.54
-BuildRequires:	pcre-devel
+URL:		https://www.leafnode.org/
+BuildRequires:	autoconf >= 2.69
+BuildRequires:	pcre2-8-devel >= 10.0
 BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 Requires:	inetdaemon
+Requires:	pcre2-8 >= 10.0
 Requires:	rc-inetd
 Provides:	nntpserver
 Obsoletes:	leafnode+
@@ -58,8 +61,9 @@ dezenas de leitores e um pequeno link para a net.
 %build
 %{__autoconf}
 %configure \
-	--with-ipv6 \
-	--sysconfdir=%{_sysconfdir}
+	--sysconfdir=%{_sysconfdir}/leafnode \
+	--with-ipv6
+
 %{__make}
 
 %install
@@ -71,21 +75,17 @@ install -d $RPM_BUILD_ROOT%{_sysconfdir}/{cron.daily,%{name},sysconfig/rc-inetd}
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.daily/texpire
-install %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/config
-install %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/filters
-install %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/leafnode
+cp -p %{SOURCE1} $RPM_BUILD_ROOT/etc/cron.daily/texpire
+cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/config
+cp -p %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/filters
+cp -p %{SOURCE4} $RPM_BUILD_ROOT/etc/sysconfig/rc-inetd/leafnode
 
 # unused stuff
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/Makefile.dist
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/config.example
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/filters.example
+%{__rm} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/config.example
+%{__rm} $RPM_BUILD_ROOT%{_sysconfdir}/leafnode/filters.example
 
 # daemontools stuff
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/UNINSTALL-daemontools
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/nntp.rules.dist
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/run.tcpd.dist
-rm -f $RPM_BUILD_ROOT%{_sysconfdir}/run.tcpserver.dist
+%{__rm} $RPM_BUILD_ROOT%{_docdir}/%{name}/UNINSTALL-daemontools
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -102,15 +102,30 @@ fi
 %defattr(644,root,root,755)
 %doc ChangeLog README tools/archivefaq.pl update.sh
 %attr(755,root,root) /etc/cron.daily/texpire
-%attr(755,news,news) %dir %{_sysconfdir}/%{name}
-%attr(600,news,news) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/config
-%attr(600,news,news) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/%{name}/filters
+%attr(755,news,news) %dir %{_sysconfdir}/leafnode
+%attr(600,news,news) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/leafnode/config
+%attr(600,news,news) %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/leafnode/filters
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/rc-inetd/leafnode
-%{_mandir}/man*/*
-%attr(755,root,root) %{_sbindir}/*
-%attr(755,root,root) %{_bindir}/*
+%{_mandir}/man1/leafnode-version.1*
+%{_mandir}/man1/newsq.1*
+%{_mandir}/man8/applyfilter.8*
+%{_mandir}/man8/checkgroups.8*
+%{_mandir}/man8/fetchnews.8*
+%{_mandir}/man8/leafnode.8*
+%{_mandir}/man8/texpire.8*
+%attr(755,root,root) %{_bindir}/leafnode-version
+%attr(755,root,root) %{_bindir}/newsq
+%attr(755,root,root) %{_sbindir}/applyfilter
+%attr(755,root,root) %{_sbindir}/checkgroups
+%attr(755,root,root) %{_sbindir}/fetchnews
+%attr(755,root,root) %{_sbindir}/leafnode
+%attr(755,root,root) %{_sbindir}/texpire
 %attr(755,news,news) %dir  %{_var}/lock/news
-%attr(2775,news,news) %dir %{_var}/spool/news
-%attr(775,news,news) %dir  %{_var}/spool/news/*
-%attr(775,news,news) %dir  %{_var}/spool/news/message.id
 %attr(775,news,news) %dir  %{_var}/log/news
+%attr(2775,news,news) %dir %{_var}/spool/news
+%attr(775,news,news) %dir  %{_var}/spool/news/failed.postings
+%attr(775,news,news) %dir  %{_var}/spool/news/interesting.groups
+%attr(775,news,news) %dir  %{_var}/spool/news/leaf.node
+%attr(775,news,news) %dir  %{_var}/spool/news/message.id
+%attr(775,news,news) %dir  %{_var}/spool/news/out.going
+%attr(775,news,news) %dir  %{_var}/spool/news/temp.files
